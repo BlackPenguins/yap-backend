@@ -87,8 +87,6 @@ router.get('/locations/plan/random', (req, res) => {
 	);
 });
 
-router.use(checkAuthMiddleware);
-
 router.put('/locations/quick', async (req, res) => {
 	console.log('Incoming New Quick Location', req.body);
 
@@ -138,6 +136,8 @@ router.put('/locations/quick', async (req, res) => {
 		}
 	}
 });
+
+router.use(checkAuthMiddleware);
 
 router.patch('/locations/:locationID', (req, res) => {
 	const locationID = req.params.locationID;

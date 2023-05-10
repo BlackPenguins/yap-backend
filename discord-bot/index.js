@@ -63,7 +63,6 @@ client.on('messageCreate', async (message) => {
 		incomingMessage.startsWith(PLAN_COMMAND)
 	) {
 		const lunchResponse = await getVisits();
-		console.log('RESPONSE', lunchResponse);
 
 		if (lunchResponse.length == 0) {
 			message.channel.send('There are no locations in **The Grand Lunch Plan**.');
@@ -178,21 +177,25 @@ function sendMessageWithRateLimit(channel, messageLeftToSend) {
 }
 async function getVisits() {
 	const result = await axios.get(`${ROOT_API_URL}locations/plan`);
-	console.log('VIS', result);
-	return result.data.data;
+	const data = result.data;
+	console.log('Visit Response', data);
+	return data;
 }
 
 async function getRandom() {
 	const result = await axios.get(`${ROOT_API_URL}locations/plan/random`);
-	console.log('VIS', result);
-	return result.data.data;
+	const data = result.data;
+	console.log('Random Response', data);
+	return data.message;
 }
 
 async function visitLocation(location) {
 	const result = await axios.post(`${ROOT_API_URL}locations/addVisit`, {
 		name: location,
 	});
-	return result.data.data;
+	const data = result.data;
+	console.log('Visited', data);
+	return data.message;
 }
 
 async function addLocation(location, author) {
@@ -200,7 +203,9 @@ async function addLocation(location, author) {
 		name: location,
 		author,
 	});
-	return result.data.data;
+	const data = result.data;
+	console.log('AddLocation', data);
+	return data.message;
 }
 
 //make sure this line is the last line

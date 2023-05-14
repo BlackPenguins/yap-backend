@@ -46,16 +46,19 @@ const app = express();
 app.use(
 	cors({
 		origin: 'http://localhost:3000',
+	}),
+	cors({
+		origin: 'http://penguinore:3000',
 	})
 );
 
 // Does the parsing for the req.body
 app.use(express.json());
 
-app.listen(port, () => {
-	console.log(`YapServer is now running on ${port}`);
-});
-
 app.use(categoryRoutes);
 app.use(distanceRoutes);
 app.use(locationRoutes);
+
+app.listen(port, () => {
+	console.log(`Yap Server is now running on ${port}`);
+});

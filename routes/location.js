@@ -7,7 +7,7 @@ import { checkAuthMiddleware } from '../utils/auth.js';
 
 const router = express.Router();
 
-router.get('/locations', (req, res) => {
+router.get('/api/locations', (req, res) => {
 	const selectPromise = getAll();
 
 	selectPromise.then(
@@ -20,7 +20,7 @@ router.get('/locations', (req, res) => {
 	);
 });
 
-router.post('/locations/addVisit', async (req, res) => {
+router.post('/api/locations/addVisit', async (req, res) => {
 	let locationName = req.body.name;
 	if (!locationName) {
 		res.status(422).json({ message: 'You must provide a location!' });
@@ -44,7 +44,7 @@ router.post('/locations/addVisit', async (req, res) => {
 	}
 });
 
-router.get('/locations/plan', (req, res) => {
+router.get('/api/locations/plan', (req, res) => {
 	const selectPromise = getAllPlans();
 
 	selectPromise.then(
@@ -72,7 +72,7 @@ router.get('/locations/plan', (req, res) => {
 	);
 });
 
-router.get('/locations/plan/random', (req, res) => {
+router.get('/api/locations/plan/random', (req, res) => {
 	const selectPromise = getAllPlans();
 
 	selectPromise.then(
@@ -87,7 +87,7 @@ router.get('/locations/plan/random', (req, res) => {
 	);
 });
 
-router.put('/locations/quick', async (req, res) => {
+router.put('/api/locations/quick', async (req, res) => {
 	console.log('Incoming New Quick Location', req.body);
 
 	const locationName = req.body.name;
@@ -107,7 +107,6 @@ router.put('/locations/quick', async (req, res) => {
 			} else if (distanceSelect.length === 0) {
 				res.status(404).json({ message: 'Could not find a **Long Drive** distance. Yell at Matt!' });
 			} else {
-				console.log('RES', categorySelect);
 				const categoryID = categorySelect[0].CategoryID;
 				const distanceID = distanceSelect[0].DistanceID;
 
@@ -139,7 +138,7 @@ router.put('/locations/quick', async (req, res) => {
 
 router.use(checkAuthMiddleware);
 
-router.patch('/locations/:locationID', (req, res) => {
+router.patch('/api/locations/:locationID', (req, res) => {
 	const locationID = req.params.locationID;
 	console.log(`Incoming Update Location for ${locationID}`, req.body);
 
@@ -242,13 +241,12 @@ router.patch('/locations/:locationID', (req, res) => {
 		updatedLocation.isPlan = req.body.isPlan;
 	}
 
-	console.log(`Update Location for ${locationID}`, req.body);
 	const updatePromise = update(updatedLocation, locationID);
 
 	updatePromise.then(
 		(result) => {
-			console.log(`Update Location for ${locationID}`, result);
-			res.status(200).json(result);
+			console.log(`Update Location for ${locationID} is SUCCESS`);
+			res.status(200).json({ locationID });
 		},
 		(error) => {
 			res.status(500).json({ message: error });
@@ -256,7 +254,7 @@ router.patch('/locations/:locationID', (req, res) => {
 	);
 });
 
-router.put('/locations', (req, res) => {
+router.put('/api/locations', (req, res) => {
 	console.log('Incoming New Location', req.body);
 	// We need a middleman object so the person using the API can't change whichever columns they want
 	const newLocation = {

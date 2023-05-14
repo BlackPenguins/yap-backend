@@ -4,7 +4,7 @@ import { getByCategory } from '../database/location.js';
 
 const router = express.Router();
 
-router.get('/categoryGroups', async (req, res) => {
+router.get('/api/categoryGroups', async (req, res) => {
 	const categories = await getAll();
 
 	let returnArray = [];
@@ -27,7 +27,7 @@ router.get('/categoryGroups', async (req, res) => {
 	res.status(200).json(returnArray);
 });
 
-router.get('/categories', (_req, res) => {
+router.get('/api/categories', (_req, res) => {
 	const selectPromise = getAll();
 
 	selectPromise.then(

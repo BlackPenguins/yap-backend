@@ -43,7 +43,7 @@ const RANDOM_COMMAND = '!random';
 
 const WHO_MESSAGE = 'YapBot v2.0 (powered by React/Nodemon)';
 const MAX_CHARACTER_LIMIT = 1800;
-const ROOT_API_URL = 'http://localhost:4590/';
+const ROOT_API_URL = 'http://localhost:3500/';
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);

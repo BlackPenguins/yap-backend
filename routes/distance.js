@@ -3,7 +3,7 @@ import { getAll } from '../database/distance.js';
 
 const router = express.Router();
 
-router.get('/distances', (_req, res) => {
+router.get('/api/distances', (_req, res) => {
 	const selectPromise = getAll();
 
 	selectPromise.then(

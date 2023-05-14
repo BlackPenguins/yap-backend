@@ -65,7 +65,7 @@ export const getAllPlans = () => {
 
 export const update = (updatedLocation, locationID) => {
 	return new Promise((resolve, reject) => {
-		db.query('UPDATE LOCATION SET ? WHERE LocationID = ?', [updatedLocation, locationID], (error) => {
+		db.query('UPDATE Location SET ? WHERE LocationID = ?', [updatedLocation, locationID], (error) => {
 			if (error) {
 				return reject(error.sqlMessage);
 			} else {

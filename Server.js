@@ -46,7 +46,7 @@ const app = express();
 // This is like our stamp of approval in the response: "Hey Browser, we allow things to be sent back to port 3700."
 app.use(
 	cors({
-		origin: `http://frontend:${process.env.REACT_PORT}`,
+		origin: `http://yap-frontend:${process.env.REACT_PORT}`,
 	}),
 	cors({
 		origin: `http://penguinore:${process.env.REACT_PORT}`,

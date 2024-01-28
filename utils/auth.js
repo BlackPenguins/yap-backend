@@ -2,6 +2,14 @@ export const checkAuthMiddleware = async (req, res, next) => {
 	if (req.method === 'OPTIONS') {
 		return next();
 	}
+
+	if (req.headers.botbypasstoken) {
+		if (req.headers.botbypasstoken == process.env.DISCORD_CLIENT_TOKEN) {
+			console.log('BOT ACCESS GRANTED');
+			return next();
+		}
+	}
+
 	if (!req.headers.authorization) {
 		console.log('No header.');
 		return res.status(401).json({

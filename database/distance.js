@@ -4,7 +4,7 @@ const db = getDB();
 
 export const getByName = (distanceName) => {
 	return new Promise((resolve, reject) => {
-		db.query('SELECT * FROM Distance WHERE Name = ? ORDER BY Position', [distanceName], (error, result) => {
+		db.query('SELECT * FROM distance WHERE Name = ? ORDER BY Position', [distanceName], (error, result) => {
 			if (error) {
 				return reject(error.sqlMessage);
 			} else {
@@ -16,7 +16,7 @@ export const getByName = (distanceName) => {
 
 export const getAll = () => {
 	return new Promise((resolve, reject) => {
-		db.query('SELECT * FROM Distance ORDER BY Position', (error, result) => {
+		db.query('SELECT * FROM distance ORDER BY Position', (error, result) => {
 			if (error) {
 				return reject(error.message);
 			} else {

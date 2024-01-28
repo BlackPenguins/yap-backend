@@ -18,11 +18,12 @@ import express from 'express';
 import cors from 'cors';
 
 dotenv.config();
-const port = process.env.YAP_PORT;
+const port = process.env.SERVER_PORT;
 
 import locationRoutes from './routes/location.js';
 import categoryRoutes from './routes/category.js';
 import distanceRoutes from './routes/distance.js';
+import reviewRoutes from './routes/review.js';
 
 // We start the client-side by running: npm run start
 // We start the server-side by running: nodemon (something that runs an auto-updating nodejs)
@@ -42,19 +43,20 @@ const app = express();
 
 // We are sending this back in all responses saying it's allowed to be used by our client
 // If we didn't provide this, the browser would see the origins were different ports and immediately reject it
-// This is like our stamp of approval in the response: "Hey Browser, we allow things to be sent back to port 3000."
+// This is like our stamp of approval in the response: "Hey Browser, we allow things to be sent back to port 3700."
 app.use(
 	cors({
-		origin: 'http://localhost:3000',
+		origin: `http://frontend:${process.env.REACT_PORT}`,
 	}),
 	cors({
-		origin: 'http://penguinore:3000',
+		origin: `http://penguinore:${process.env.REACT_PORT}`,
 	})
 );
 
 // Does the parsing for the req.body
 app.use(express.json());
 
+app.use(reviewRoutes);
 app.use(categoryRoutes);
 app.use(distanceRoutes);
 app.use(locationRoutes);

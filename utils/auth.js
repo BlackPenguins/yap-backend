@@ -19,7 +19,7 @@ export const checkAuthMiddleware = async (req, res, next) => {
 	const authToken = authFragments[1];
 
 	// Make a call to the auth server to get the details of this user
-	const response = await fetch(`http://localhost:7000/auth/checkuser`, {
+	const response = await fetch(`http://authentication:${process.env.AUTH_PORT}/auth/checkuser`, {
 		method: 'POST',
 		headers: {
 			// This is required. NodeJS server won't know how to read it without it.

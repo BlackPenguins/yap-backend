@@ -18,6 +18,10 @@ router.get('/api/categoryGroups', async (req, res) => {
 		const locations = await getByCategory(category.CategoryID);
 
 		for (const location of locations) {
+			if (location.DeathDate) {
+				const deathDate = new Date(location.DeathDate);
+				location['DeathDateFormatted'] = deathDate.getMonth() + 1 + '/' + deathDate.getDate() + '/' + deathDate.getFullYear();
+			}
 			categoryObject.locations.push(location);
 		}
 
